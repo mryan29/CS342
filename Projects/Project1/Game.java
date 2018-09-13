@@ -62,6 +62,98 @@ public class Game {
 			String cmd = scanner.nextLine();
 			
 			System.out.println("\n");
+			if (cmd.equals("QUIT") ||
+				cmd.equals("quit") ||
+				cmd.equals("EXIT") ||
+				cmd.equals("exit") )
+				{	
+					this.exit();
+					done = true;
+					break;
+				}
+			else if (cmd.equals("LOOK") ||
+					cmd.equals("look") )
+				{	
+					break;
+				}
+			else if (cmd.equals("GO N") ||
+					cmd.equals("GO NORTH") ||
+					cmd.equals("go n") ||
+					cmd.equals("go north") ||
+					cmd.equals("n") ||
+					cmd.equals("N") )
+				{
+					setCurrentPlace(currentPlace.followDirection("N"));
+					break;
+				}
+			else if (cmd.equals("GO S") ||
+					cmd.equals("GO SOUTH") ||
+					cmd.equals("go s") ||
+					cmd.equals("go south") ||
+					cmd.equals("s") ||
+					cmd.equals("S") )
+				{
+					setCurrentPlace(currentPlace.followDirection("S"));
+					break;
+				}
+			else if (cmd.equals("GO E") ||
+					cmd.equals("GO EAST") ||
+					cmd.equals("go e") ||
+					cmd.equals("go east") ||
+					cmd.equals("e") ||
+					cmd.equals("E") )
+				{
+					setCurrentPlace(currentPlace.followDirection("E"));
+					break;
+				}
+			else if (cmd.equals("GO W") ||
+					cmd.equals("GO WEST") ||
+					cmd.equals("go w") ||
+					cmd.equals("go west") ||
+					cmd.equals("w") ||
+					cmd.equals("W") )
+				{
+					setCurrentPlace(currentPlace.followDirection("W"));
+					break;
+				}
+			else if (cmd.equals("GO U") ||
+					cmd.equals("GO UP") ||
+					cmd.equals("go u") ||
+					cmd.equals("go up") ||
+					cmd.equals("u") ||
+					cmd.equals("U") )
+				{
+					setCurrentPlace(currentPlace.followDirection("U"));
+					break;
+				}
+			else if (cmd.equals("GO D") ||
+					cmd.equals("GO DOWN") ||
+					cmd.equals("go d") ||
+					cmd.equals("go down") ||
+					cmd.equals("d") ||
+					cmd.equals("D") )
+				{
+					setCurrentPlace(currentPlace.followDirection("D"));
+					break;
+				}
+			else {
+					System.out.println("-----------------------------------------------------------------------------------------------------");
+					System.out.println("|");
+					System.out.println("|\tHmm... I don't seem to recognize that command. Try again!");
+					System.out.println("|\tPossible inputs: ");
+					System.out.println("|\t\tQUIT or EXIT – Quit the game.");
+					System.out.println("|\t\tLOOK – Redisplay the current place.");
+					System.out.println("|\t\tGO XXX, where XXX is one of N, S, E, W, U, or D.");
+					System.out.println("|");
+					System.out.println("-----------------------------------------------------------------------------------------------------");
+					break;
+				}
+			}
+			
+			
+			
+			
+			/*
 			switch (cmd) {
 				case "QUIT":
 				case "EXIT":
@@ -132,7 +224,7 @@ public class Game {
 					System.out.println("|");
 					System.out.println("-----------------------------------------------------------------------------------------------------");
 					break;
-			}
+			} */
 		}
 	}
 
