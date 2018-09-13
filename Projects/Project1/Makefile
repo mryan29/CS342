@@ -1,0 +1,2 @@
+ALL: *.java
+	javac *.java
