@@ -1,4 +1,9 @@
 /* Meg Ryan, mryan47 */
+/* TO DO */
+	// add storage to hold collection of Artifacts
+	// artifacts held by Game class are player possessions
+	// methods needed to add/remove artifacts to/from collections
+
 
 /* Game Class */
 import java.util.*;
@@ -9,6 +14,7 @@ public class Game {
 	private String name;	// name of the game
 	private Place currentPlace;	// current Place
 	private Vector<Place> places; // vector of Place objects
+	private Vector<Artifact> artifacts;	// vector of Artifact objects
 	
 	public Game(String name) {	// constructor
 		this.name = name;
@@ -18,6 +24,14 @@ public class Game {
 	public void addPlace(Place place) { // adds a place to the collection of Places in the game
 		this.places.addElement(place);
 	
+	}
+	
+	public Place getCurrentPlace() {
+		return this.currentPlace;
+	}
+	
+	public void addArtifact(Artifact artifact) {
+		this.artifacts.addElement(artifact);
 	}
 	
 	public void print() { // prints out game info

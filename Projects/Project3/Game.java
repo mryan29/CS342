@@ -1,4 +1,11 @@
 /* Meg Ryan, mryan47 */
+/* TO DO */
+	// add storage to hold collection of Artifacts
+	// artifacts held by Game class are player possessions
+	// methods needed to add/remove artifacts to/from collections
+	// make public Game (Scanner) constructor - OCT4
+	// add private int keywordCount(Scanner infile, String keyword) used by constructor - OCT4
+		// uses CleanLineScanner java file - OCT4
 
 /* Game Class */
 import java.util.*;
@@ -8,16 +15,72 @@ public class Game {
 
 	private String name;	// name of the game
 	private Place currentPlace;	// current Place
-	private Vector<Place> places; // vector of Place objects
+	private Vector<Place> places; // vector of Place objects - note: Bell uses ArrayList
+	private Vector<Artifact> artifacts;	// vector of Artifact objects - note: Bell uses ArrayList
 	
-	public Game(String name) {	// constructor
+	/*public Game(String name) {	// constructor
 		this.name = name;
 		this.places = new Vector<Place>();
+	}*/
+	
+	public Game(Scanner infile) {
+		// create collections
+		places = new ArrayList<Place>();
+		playerPossessions = new ArrayList<Artifact>();
+		
+		// parse file
+		
+		// first line
+		String line = CleanLineScanner.getCleanLine(infile);
+		Scanner lineScanner = new Scanner(line);
+		String word = lineScanner.next();
+		if (!word.equalsIgnoreCase("GDF")) {
+			System.err.println("Error parsing input file. \"GDF\" not found.\n");
+			System.exit(-1);
+		}
+		double version = lineScanner.nextDouble();
+		if (version != 3.1) {
+			System.err.println("Error parsing input file. Wrong version number " + version);
+			System.exit(-2);
+		}
+		lineScanner.skip("[ \t]*");
+		name = lineScanner.nextLine();
+		
+		// look for Places keywrod and call new Place
+		int nPlaces = keywordCount(infile, "PLACES");
+		for (int i = 0; i < nPlaces; i++) {
+			places.add(new Place(infile));
+		}
+		
+		// look for Directions keyword and call new Direction
+		int nDirections = keywordCount(infile, "DIRECTIONS");
+		for (int i = 0; i < nDirections; i++) {
+			new Direction(infile);
+		}
+		
+		// look for artifacts keyword and call new artifact
+		int nArtifacts = keywordCount(infile, "ARTIFACTS");
+		for (int i = 0; i < nArtifacts; i++) {
+			line = CleanLineScanner.getCleanLine(infile);
+			lineScanner = new Scanner(line);
+			int placeID = lineScanner.nextInt();
+			Place.getPlaceByID(placeID).addArtifact(new Artifact(infile));
+		}
+	
+	
 	}
 	
 	public void addPlace(Place place) { // adds a place to the collection of Places in the game
 		this.places.addElement(place);
 	
+	}
+	
+	public Place getCurrentPlace() {
+		return this.currentPlace;
+	}
+	
+	public void addArtifact(Artifact artifact) {
+		this.artifacts.addElement(artifact);
 	}
 	
 	public void print() { // prints out game info
@@ -227,6 +290,29 @@ public class Game {
 					break;
 			} */
 		//}
+	}
+	
+	private int keywrodCount(Scanner infile, String keyword) {
+		String line = CleanLineScanner.getCleanLine(infile); // to add
+		Scanner lineScanner = new Scanner(line);
+		String word = lineScanner.next();
+		if (!word.equalsIgnoreCase(keyword)) {
+			System.err.println("Error parsing input file. \"" + keyword + "\" not found.\n");
+			System.exit(-4);
+		}
+		
+		int count = lineScanner.nextInt();
+		if (count <= 0) {
+			System.err.println("Error - Invalid counter found in \"" + line + "\"");
+			System.exit(-5);
+		}
+		
+		lineScanner.close();
+		return count;
+	}
+	
+	
+	
 	}
 
 
